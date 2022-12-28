@@ -6,9 +6,9 @@ const {GraphQLObjectType, GraphQLString, GraphQLSchema} = graphql; //Required to
 
 // Dummy Data
 var books =[
-    {name: "Atomic Habits", genre: 'Non-Fiction', id: 1},
-    {name: "Star Wars: The Prequels", genre: 'Sci-Fi', id: 2},
-    {name: "Star Trek", genre: 'Sci-Fi', id: 3},
+    {name: "Atomic Habits", genre: 'Non-Fiction', id: "1"},
+    {name: "Star Wars: The Prequels", genre: 'Sci-Fi', id: "2"},
+    {name: "Star Trek", genre: 'Sci-Fi', id: "3"},
 ]
 
 const BookType = new GraphQLObjectType({

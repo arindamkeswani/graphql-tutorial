@@ -1,8 +1,14 @@
 const graphql = require('graphql');
 const _ = require("lodash");
 
-const {GraphQLObjectType, GraphQLString, GraphQLSchema} = graphql; //Required to define a new "type" or a schema
+const {
+    GraphQLObjectType, 
+    GraphQLString, 
+    GraphQLSchema,
+    GraphQLID
+} = graphql; //Required to define a new "type" or a schema
 
+//GraphQLID can search for an ID whether it is a String or not
 
 // Dummy Data
 var books =[
@@ -15,7 +21,7 @@ const BookType = new GraphQLObjectType({
     name: 'Book',
     fields: ()=>({
         id: {
-            type: GraphQLString
+            type: GraphQLID
         },
         name: {
             type: GraphQLString
@@ -43,11 +49,12 @@ const RootQuery = new GraphQLObjectType({
             type: BookType,
             args: {
                 id: {
-                    type: GraphQLString
+                    type: GraphQLID
                 }
             },
             resolve(parent, args){
                 //code to get data from DB or some other source
+                console.log(typeof(args.id))
                 return _.find(books, {id: args.id})
             }
         }

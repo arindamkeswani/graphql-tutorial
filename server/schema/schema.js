@@ -4,6 +4,7 @@ const _ = require("lodash");
 const {
     GraphQLObjectType, 
     GraphQLString, 
+    GraphQLInt,
     GraphQLSchema,
     GraphQLID
 } = graphql; //Required to define a new "type" or a schema
@@ -12,9 +13,15 @@ const {
 
 // Dummy Data
 var books =[
-    {name: "Atomic Habits", genre: 'Non-Fiction', id: "1"},
+    {name: "Atomic Habits", genre: 'Self-help', id: "1"},
     {name: "Star Wars: The Prequels", genre: 'Sci-Fi', id: "2"},
-    {name: "Star Trek", genre: 'Sci-Fi', id: "3"},
+    {name: "Rich Dad Poor Dad", genre: 'Self-help', id: "3"},
+]
+
+var authors = [
+    {name: "Naval Ravikant", age: 48, id: '1'},
+    {name: "George Lucas", age: 78, id: '2'},
+    {name: "Robert Kiyosaki", age: 75, id: '3'},
 ]
 
 const BookType = new GraphQLObjectType({
@@ -37,6 +44,22 @@ const BookType = new GraphQLObjectType({
 // fields is going to return the object that is defined within it 
 // For each field, define its type such as String (e.g. GraphQLString), Integer, etc.
 
+const AuthorType = new GraphQLObjectType({
+    name: 'Author',
+    fields: ()=>({
+        id: {
+            type: GraphQLID
+        },
+        name: {
+            type: GraphQLString
+        },
+        age: {
+            type: GraphQLInt
+        },
+
+    })
+});
+
 // A Schema is used to:
 // 1. Define a Type
 // 2. Define a relationship between Types
@@ -54,10 +77,23 @@ const RootQuery = new GraphQLObjectType({
             },
             resolve(parent, args){
                 //code to get data from DB or some other source
-                console.log(typeof(args.id))
+                // console.log(typeof(args.id))
                 return _.find(books, {id: args.id})
             }
-        }
+        },
+        author: {
+            type: AuthorType,
+            args: {
+                id: {
+                    type: GraphQLID
+                }
+            },
+            resolve(parent, args){
+                //code to get data from DB or some other source
+                // console.log(typeof(args.id))
+                return _.find(authors, {id: args.id})
+            }
+        },
     }
 })
 

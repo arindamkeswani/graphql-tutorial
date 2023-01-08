@@ -1,5 +1,7 @@
 const graphql = require('graphql');
 const _ = require("lodash");
+const Book = require("../models/book");
+const Author = require("../models/author");
 
 const {
     GraphQLObjectType,
@@ -127,7 +129,56 @@ const RootQuery = new GraphQLObjectType({
     }
 })
 
+//Mutations need to be specifically defined in GraphQL. These are used to Add, Edit, & Delete data from the DB
+const Mutation = new GraphQLObjectType({
+    name: "Mutation",
+    fields: {
+        addAuthor : {
+            type: AuthorType,
+            args: {
+                name: {
+                    type: GraphQLString
+                },
+                age: {
+                    type: GraphQLInt
+                }
+            },
+            resolve(parent, args){
+                let author = new Author({
+                    name: args.name,
+                    age: args.age
+                }) //Same Author as the one imported above
+
+                return author.save();
+            }
+        },
+        addBook : {
+            type: BookType,
+            args: {
+                name: {
+                    type: GraphQLString
+                },
+                genre: {
+                    type: GraphQLString
+                },
+                authorId:{
+                    type: GraphQLID
+                }
+            },
+            resolve(parent, args){
+                let book = new Book({
+                    name: args.name,
+                    genre: args.genre,
+                    authorId: args.authorId
+                }) //Same Author as the one imported above
+
+                return book.save();
+            }
+        }
+    }
+})
 
 module.exports = new GraphQLSchema({
-    query: RootQuery
+    query: RootQuery,
+    mutation: Mutation
 })

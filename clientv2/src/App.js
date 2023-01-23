@@ -7,6 +7,7 @@ import { ApolloProvider, useQuery, useApolloClient } from '@apollo/client' //to 
 //It enables us to inject the data that Apollo receives from the endpoint specified in the client into our app
 
 import BookList from "./Components/BookList";
+import AddBook from "./Components/AddBook";
 
 //Apollo Client Setup
 const client = new ApolloClient({
@@ -21,6 +22,7 @@ function App() {
       <div className="App" id="main">
         <h1>GraphQL Beginner Tutorial (Reading list)</h1>
         <BookList />
+        <AddBook />
       </div> 
     </ApolloProvider>
   );

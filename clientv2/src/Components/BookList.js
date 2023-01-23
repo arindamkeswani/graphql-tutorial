@@ -12,7 +12,7 @@ const getBooksQuery = gql`
   }
 `
 
-function BookList(props) {
+function BookList() {
 
   const { loading, error, data } = useQuery(getBooksQuery);
 

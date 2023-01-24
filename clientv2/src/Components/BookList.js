@@ -1,16 +1,8 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 // import { graphql } from '@apollo/client/react/hoc';
+import {getBooksQuery} from '../Queries/queries';
 
 
-const getBooksQuery = gql`
-  {
-    books{
-      name
-      genre
-      id
-    }
-  }
-`
 
 function BookList() {
 

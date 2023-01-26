@@ -10,11 +10,15 @@ function BookDetails(props) {
         }
     });
 
-    function displayBookDetails(){
-        let {book}=data ? data : {} ;
+
+
+    function displayBookDetails() {
+        if (loading) return <div disabled>Loading...</div>;
+        if (error) return <div>No book selected</div>;
+        let { book } = data ? data : {};
         console.log(book)
-        
-        if(book){
+
+        if (book) {
             return (
                 <div>
                     <h2>{book.name}</h2>
@@ -23,27 +27,27 @@ function BookDetails(props) {
                     <p>Other books by this author:</p>
                     <ul className="other-books">
                         {
-                            book.author.books.filter( row => {return row.name!=book.name} )
-                            .map( item=> { 
-                                return <li key={item.id}>{item.name}</li>
-                             })
+                            book.author.books.filter(row => { return row.name != book.name })
+                                .map(item => {
+                                    return <li key={item.id}>{item.name}</li>
+                                })
                         }
                     </ul>
                 </div>
             )
         }
-        else{
+        else {
             return (
                 <div>No book selected</div>
             )
         }
     }
 
-return (
-    <div id="book-details">
-       {displayBookDetails()}
-    </div>
-)
+    return (
+        <div id="book-details">
+            {displayBookDetails()}
+        </div>
+    )
 }
 
 export default BookDetails;
